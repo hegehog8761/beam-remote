@@ -1,0 +1,22 @@
+{
+    "grid_height": "3",
+    "grid_width": "4",
+    "buttons": {
+        "0-0": {
+            "action": "ui.inputActions.vehicle.toggle_hazard_signal",
+            "key": "f37"
+        },
+        "1-0": {
+            "action": "ui.inputActions.vehicle.parkingbrake",
+            "key": "f38"
+        },
+        "2-0": {
+            "action": "ui.inputActions.vehicle.toggle_left_signal",
+            "key": "f39"
+        },
+        "3-0": {
+            "action": "ui.inputActions.vehicle.toggle_right_signal",
+            "key": "f40"
+        }
+    }
+}
