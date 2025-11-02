@@ -6,4 +6,4 @@ Note: This tool is not at all affiliated with or endorsed by the developers of B
 # Please note this tool only currently works on Linux (Does not work on Windows!)
 
 ## How to use
- - [Installation]{https://github.com/hegehog8761/beam-remote/tree/main/blob/master/docs/installation.md}
+ - [Installation]{https://github.com/hegehog8761/beam-remote/tree/main/docs/installation.md}
