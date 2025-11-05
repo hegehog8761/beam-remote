@@ -17,6 +17,10 @@
         "3-0": {
             "action": "ui.inputActions.vehicle.toggle_right_signal",
             "key": "f40"
+        },
+        "0-1": {
+            "action": "ui.inputActions.vehicle.horn",
+            "key": "f41"
         }
     }
 }
