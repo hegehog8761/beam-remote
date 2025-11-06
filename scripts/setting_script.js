@@ -49,8 +49,8 @@ function SettingUpdater() {
     })
 }
 
-document.getElementById("height_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event)})
-document.getElementById("width_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event)})
+document.getElementById("height_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event); UnsavedWarning()})
+document.getElementById("width_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event); UnsavedWarning()})
 
 window.addEventListener("beforeunload", function(e) {
     if (changed) {
