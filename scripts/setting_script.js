@@ -49,8 +49,17 @@ function SettingUpdater() {
     })
 }
 
-document.getElementById("height_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event); UnsavedWarning()})
-document.getElementById("width_input").addEventListener("focusout", function(event) {ConstrainGridSizes(event); UnsavedWarning()})
+document.getElementById("height_input").addEventListener("focusout", function(event) {
+    ConstrainGridSizes(event);
+    UnsavedWarning();
+    GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
+})
+
+document.getElementById("width_input").addEventListener("focusout", function(event) {
+    ConstrainGridSizes(event);
+    UnsavedWarning();
+    GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
+})
 
 window.addEventListener("beforeunload", function(e) {
     if (changed) {
