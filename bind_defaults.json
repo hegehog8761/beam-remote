@@ -1,4 +1,4 @@
-{
+[
     {"control":"*", "action":"menu_tab_right"},
     {"control":"0", "action":"camera_10"},
     {"control":"1", "action":"camera_1"},
@@ -107,7 +107,6 @@
     {"control":"escape", "action":"cui_camera" },
     {"control":"delete", "action":"cui_context" },
     {"control":"escape", "action":"cui_logs" },
-    //{"control":"insert", "action":"cui_action_2" }, // commented out until support for action-activation is implemented on the UI side, otherwise recovery is unusable when menus are active
     {"control":"end", "action":"cui_action_4" },
     {"control":"home", "action":"cui_action_3" },
     {"control":"escape", "action":"cui_details" },
@@ -160,4 +159,4 @@
     {"control":"z", "action":"activate_previous_layer"},
     {"control":"e", "action":"toggleRadialMenuMulti"},
     {"control":"shift e", "action":"gameplay_interact"}
-}
+]

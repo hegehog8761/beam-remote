@@ -73,6 +73,10 @@ def run():
     @app.route("/get_bind_locales", methods=['GET'])
     def get_bind_locales():
         return flask.jsonify(ujson.load(open("bind_locales.json")))
+    
+    @app.route("/get_bind_defaults", methods=['GET'])
+    def get_bind_defaults():
+            return flask.jsonify(ujson.load(open("bind_defaults.json")))
 
     @app.route("/<path:path>")
     def unknown(path):

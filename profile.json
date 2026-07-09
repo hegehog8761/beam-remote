@@ -4,23 +4,23 @@
     "buttons": {
         "0-0": {
             "action": "ui.inputActions.vehicle.toggle_hazard_signal",
-            "key": "f13"
+            "key": "slash"
         },
         "1-0": {
             "action": "ui.inputActions.vehicle.parkingbrake",
-            "key": "f14"
+            "key": "space"
         },
         "2-0": {
             "action": "ui.inputActions.vehicle.toggle_left_signal",
-            "key": "f15"
+            "key": "comma"
         },
         "3-0": {
             "action": "ui.inputActions.vehicle.toggle_right_signal",
-            "key": "f16"
+            "key": "period"
         },
         "0-1": {
             "action": "ui.inputActions.vehicle.horn",
-            "key": "f17"
+            "key": "h"
         }
     }
 }

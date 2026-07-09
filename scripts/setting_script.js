@@ -51,13 +51,13 @@ function SettingUpdater() {
 
 document.getElementById("height_input").addEventListener("focusout", function(event) {
     ConstrainGridSizes(event);
-    UnsavedWarning();
+    ShowUnsavedWarning();
     GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
 })
 
 document.getElementById("width_input").addEventListener("focusout", function(event) {
     ConstrainGridSizes(event);
-    UnsavedWarning();
+    ShowUnsavedWarning();
     GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
 })
 
@@ -138,7 +138,7 @@ function PopulateActions() {
     $("select").select2();
 }
 
-function UnsavedWarning() {
+function ShowUnsavedWarning() {
     document.getElementsByClassName("top_bar_holder")[0].hidden = false
     changed = true
 }
@@ -153,9 +153,40 @@ function FillSettings() {
                 $(`#${x}-${y}-key`).val(settings["buttons"][`${x}-${y}`]["key"]).trigger('change')
             }
 
-            $(`#${x}-${y}-action`).on('change', UnsavedWarning)
-            $(`#${x}-${y}-key`).on('change', UnsavedWarning)
+            $(`#${x}-${y}-action`).on('change', function(event) {
+                ShowUnsavedWarning()
+                SetDefaultBindFor(event.target)
+            })
+            $(`#${x}-${y}-key`).on('change', ShowUnsavedWarning)
         }
+    }
+}
+
+function SetDefaultBindFor(target_input) {
+    var bin_sections = $(target_input).val().split(".")
+    var common_name = bin_sections[bin_sections.length - 1]
+    var target_bind
+    var searching = true
+    bind_defaults.forEach(binding => {
+        if (searching && binding["action"] == common_name) {
+            target_bind = binding
+            searching = false
+        }
+    });
+    if (target_bind) {
+        key_name = target_input.id.replace("-action", "-key")
+        document.getElementById(key_name).value = target_bind["control"]
+        console.log(`Successfully found binding for ${$(target_input).val()}, was ${target_bind["control"]}`)
+    } else {
+        console.info(`Failed to find binding for ${$(target_input).val()}`)
+    }
+}
+
+var bind_defaults
+
+async function LoadBindDefaults() {
+    if (!bind_defaults) {
+        bind_defaults = await fetch("/get_bind_defaults").then(response => response.json())
     }
 }
 
@@ -180,3 +211,4 @@ async function LoadSettings() {
 }
 
 LoadSettings()
+LoadBindDefaults()
