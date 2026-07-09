@@ -14,7 +14,7 @@ import os, sys, platform, ctypes
 from pynput.keyboard import Key, Controller
 import server, address_register
 
-original_hostname = "somedevice"
+original_hostname = "some-device"
 
 if platform.platform() == "Linux" or "Linux" in platform.platform():
     if os.getuid() != 0:

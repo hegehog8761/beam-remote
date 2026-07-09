@@ -60,3 +60,8 @@ table.button_config_grid {
 input.action_select {
     width: 75%;
 }
+
+.action_value {
+    width: 35px;
+    margin-bottom: 3px;
+}

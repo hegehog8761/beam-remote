@@ -1,5 +1,6 @@
 import flask, ujson, pyautogui, time, os
-from pynput.keyboard import Key, Controller
+#from pynput.keyboard import Key, Controller
+import keyboard
 
 def run():
     app = flask.Flask(__name__)
@@ -58,13 +59,15 @@ def run():
     @app.route("/key_down", methods=['POST'])
     def key_down():
         payload = flask.request.get_json(force=True)
-        pyautogui.keyDown(payload["keyCode"])
+        #pyautogui.keyDown(payload["keyCode"])
+        keyboard.press(payload["keyCode"])
         return "OK", 200
 
     @app.route("/key_up", methods=['POST'])
     def key_up():
         payload = flask.request.get_json(force=True)
-        pyautogui.keyUp(payload["keyCode"])
+        #pyautogui.keyUp(payload["keyCode"])
+        keyboard.release(payload["keyCode"])
         return "OK", 200
 
     @app.route("/get_bind_locales", methods=['GET'])

@@ -11,7 +11,7 @@ function ConstrainGridSizes(eventCaller) {
 
 changed = false
 
-f_keys = ["f37", "f38", "f39", "f40", "f41", "f42", "f43", "f44", "f45", "f46", "f47", "f48"]
+f_keys = ["f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24"]
 
 function KeybindUpdater(event) {
     if (f_keys.includes(event.target.value)) {
@@ -63,7 +63,7 @@ document.getElementById("width_input").addEventListener("focusout", function(eve
 
 window.addEventListener("beforeunload", function(e) {
     if (changed) {
-        e.returnValue = "Warning, some settings have been modified but not saved.If you leave now any changes made will not be saved."
+        e.returnValue = "Warning, some settings have been modified but not saved. If you leave now any changes made will not be saved."
         return e.returnValue;
     }
 })
@@ -93,11 +93,15 @@ function GenerateGrid(rows, cols) {
             var key_label = document.createElement("label")
             key_label.innerText = "Key: "
             key_label.setAttribute("for", `${x}-${y}-key`)
-            var key_input = document.createElement("input")
-            key_input.className = "action_select"
-            key_input.id = `${x}-${y}-key`
-            key_input.setAttribute("list", "key_codes")
-            key_input.addEventListener("input", KeybindUpdater)
+            // var key_input = document.createElement("input")
+            // key_input.className = "action_select"
+            // key_input.id = `${x}-${y}-key`
+            // key_input.setAttribute("list", "key_codes")
+            // key_input.addEventListener("input", KeybindUpdater)
+            var key_value = document.createElement("input")
+            key_value.innerText = "Test"
+            key_value.id = `${x}-${y}-key`
+            key_value.className = "action_value"
             var key_warning = document.createElement("p")
             key_warning.innerText = "!! Warning, using non-default keys can cause unexpected behaviours"
             key_warning.style = "color: #e1c863ff;"
@@ -107,7 +111,8 @@ function GenerateGrid(rows, cols) {
             cell.appendChild(action_label)
             cell.appendChild(action_select)
             cell.appendChild(key_label)
-            cell.appendChild(key_input)
+            // cell.appendChild(key_input)
+            cell.appendChild(key_value)
             cell.appendChild(key_warning)
         }
     }
