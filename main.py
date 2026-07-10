@@ -1,20 +1,14 @@
-# from flask import *
-
-
-
-# app = Flask(__name__)
-
-# @app.route("/")
-# def home():
-#     return "homepage"
-
-# app.run(host="beamcontroller.local")
-
-import os, sys, platform, ctypes
-from pynput.keyboard import Key, Controller
-import server, address_register
+import os, sys, platform, ctypes, atexit, server, address_register
 
 original_hostname = "some-device"
+
+def exit_program():
+    print("Exiting...")
+    if platform.platform() == "Linux":
+        address_register.linux()
+    sys.exit(0)
+
+atexit.register(exit_program)
 
 if platform.platform() == "Linux" or "Linux" in platform.platform():
     if os.getuid() != 0:
@@ -36,14 +30,10 @@ else:
 try:
     server.run()
 except KeyboardInterrupt:
-    print("Exiting...")
-    if platform.platform() == "Linux":
-        address_register.linux()
-    sys.exit(0)
+    exit_program()
 
-print("Exiting...")
-if platform.platform() == "Linux" or "Linux" in platform.platform():
-    address_register.linux_revert(original_hostname)
+exit_program()
+
 
 # print(base_hosts)
     

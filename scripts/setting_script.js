@@ -163,8 +163,8 @@ function FillSettings() {
 }
 
 function SetDefaultBindFor(target_input) {
-    var bin_sections = $(target_input).val().split(".")
-    var common_name = bin_sections[bin_sections.length - 1]
+    var bind_sections = $(target_input).val().split(".")
+    var common_name = bind_sections[bind_sections.length - 1]
     var target_bind
     var searching = true
     bind_defaults.forEach(binding => {
