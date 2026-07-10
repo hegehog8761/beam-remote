@@ -2,6 +2,9 @@ import flask, ujson, pyautogui, time, os
 #from pynput.keyboard import Key, Controller
 import keyboard
 
+def translate_keycode(original_keycode):
+    return original_keycode.replace("-", "+").replace(" ", "+")
+
 def run():
     app = flask.Flask(__name__)
     #pyautogui = Controller()
@@ -60,14 +63,20 @@ def run():
     def key_down():
         payload = flask.request.get_json(force=True)
         #pyautogui.keyDown(payload["keyCode"])
-        keyboard.press(payload["keyCode"])
+        key = payload["keyCode"]
+        if " " in payload["keyCode"]: # Space means that the key has a modifier which needs to be tranlsated
+            key = translate_keycode(payload["keyCode"])
+        keyboard.press(key)
         return "OK", 200
 
     @app.route("/key_up", methods=['POST'])
     def key_up():
         payload = flask.request.get_json(force=True)
         #pyautogui.keyUp(payload["keyCode"])
-        keyboard.release(payload["keyCode"])
+        key = payload["keyCode"]
+        if " " in payload["keyCode"]: # Space means that the key has a modifier which needs to be tranlsated
+            key = translate_keycode(payload["keyCode"])
+        keyboard.release(key)
         return "OK", 200
 
     @app.route("/get_bind_locales", methods=['GET'])

@@ -5,7 +5,7 @@ original_hostname = "some-device"
 def exit_program():
     print("Exiting...")
     if platform.platform() == "Linux":
-        address_register.linux()
+        address_register.linux_revert(original_hostname)
     sys.exit(0)
 
 atexit.register(exit_program)
