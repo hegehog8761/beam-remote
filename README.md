@@ -5,3 +5,4 @@ Note: This tool is not at all affiliated with or endorsed by the developers of B
 
 ## How to use
  - [Installation](https://github.com/hegehog8761/beam-remote/tree/main/docs/installation.md)
+ - [Keybind Formatting](https://github.com/hegehog8761/beam-remote/tree/main/docs/bind_formatting.md)
