@@ -14,6 +14,7 @@ if platform.platform() == "Linux" or "Linux" in platform.platform():
     os.system("pip install -r requirements.txt")
 
     """ # This doesn't work :(
+    # Needs to install tkinter as well (sudo apt-get install python3-tk python3-dev)
 elif platform.platform() == "Windows" or "Windows" in platform.platform():
     if not ctypes.windll.shell32.IsUserAnAdmin():
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)

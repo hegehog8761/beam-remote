@@ -12,14 +12,17 @@ function ConstrainGridSizes(eventCaller) {
 changed = false
 
 // f_keys = ["f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24"]
-const allowed_keys = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "h", "k", "l", "z", "x", "c", "b", "n", "m", "tilde", "period", "comma", "up", "down", "left", "right", "enter", "backspace", "home", "insert", "numpad0", "numpad1", "numpad2", "numpad2", "numpad3", "numpad4", "numpad4", "numpad5", "numpad6", "numpad6", "numpad8", "numpad8", "numpad9", "numpadadd", "numpadminus", "lcontrol", "lshift", "rcontrol", "rshift", "delete", "end", "pagedown", "pageup", "slash", "tab", "alt", "*", "ctrl", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "shift"]
+const allowed_keys = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "h", "k", "l", "z", "x", "c", "b", "n", "m", "tilde", "period", "comma", "up", "down", "left", "right", "enter", "backspace", "home", "insert", "numpad0", "numpad1", "numpad2", "numpad2", "numpad3", "numpad4", "numpad4", "numpad5", "numpad6", "numpad6", "numpad8", "numpad8", "numpad9", "numpadadd", "numpadminus", "lcontrol", "lshift", "rcontrol", "rshift", "delete", "end", "pagedown", "pageup", "slash", "tab", "alt", "\\*", "ctrl", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "shift"]
 const allowed_modifiers = ["lshift", "lcontrol", "rshift", "rcontrol", "alt", "ctrl", "shift"]
 
 
 
 function KeybindUpdater(event) {
+    console.log("Checking keybind")
     var regex = `^(${allowed_modifiers.join("|")}(\\-(${allowed_modifiers.join("|")}))? )?(${allowed_keys.join("|")})$`
-    if (event.target.value.match(regex) != null) {
+    console.log(regex)
+    console.log(event.target.value)
+    if (`${event.target.value}`.match(regex) != null) {
         event.target.parentElement.getElementsByClassName("key_warning")[0].hidden = true
         document.getElementById("save_button").disabled = false
     } else {
@@ -109,8 +112,9 @@ function GenerateGrid(rows, cols) {
             key_value.innerText = "Test"
             key_value.id = `${x}-${y}-key`
             key_value.className = "action_value"
+            key_value.addEventListener("input", KeybindUpdater)
             var key_warning = document.createElement("p")
-            key_warning.innerHTML = "!! Invalid key formatting, please see <a href=\"https://github.com/hegehog8761/beam-remote/blob/main/docs/key_formatting.md\">this guide</a>."
+            key_warning.innerHTML = "!! Invalid key formatting, please see <a href=\"https://github.com/hegehog8761/beam-remote/blob/main/docs/bind_formatting.md\">this guide</a>."
             key_warning.style = "color: rgb(255, 51, 51);"
             key_warning.className = "key_warning"
             key_warning.hidden = true
