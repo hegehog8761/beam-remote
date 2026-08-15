@@ -12,7 +12,7 @@ function ConstrainGridSizes(eventCaller) {
 changed = false
 
 // f_keys = ["f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24"]
-const allowed_keys = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "h", "k", "l", "z", "x", "c", "b", "n", "m", "tilde", "period", "comma", "up", "down", "left", "right", "enter", "backspace", "home", "insert", "numpad0", "numpad1", "numpad2", "numpad2", "numpad3", "numpad4", "numpad4", "numpad5", "numpad6", "numpad6", "numpad8", "numpad8", "numpad9", "numpadadd", "numpadminus", "lcontrol", "lshift", "rcontrol", "rshift", "delete", "end", "pagedown", "pageup", "slash", "tab", "alt", "\\*", "ctrl", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "shift"]
+const allowed_keys = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", "tilde", "period", "comma", "up", "down", "left", "right", "enter", "backspace", "home", "insert", "numpad0", "numpad1", "numpad2", "numpad2", "numpad3", "numpad4", "numpad4", "numpad5", "numpad6", "numpad6", "numpad8", "numpad8", "numpad9", "numpadadd", "numpadminus", "lcontrol", "lshift", "rcontrol", "rshift", "delete", "end", "pagedown", "pageup", "slash", "tab", "alt", "\\*", "ctrl", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "shift"]
 const allowed_modifiers = ["lshift", "lcontrol", "rshift", "rcontrol", "alt", "ctrl", "shift"]
 
 
@@ -20,8 +20,6 @@ const allowed_modifiers = ["lshift", "lcontrol", "rshift", "rcontrol", "alt", "c
 function KeybindUpdater(event) {
     console.log("Checking keybind")
     var regex = `^(${allowed_modifiers.join("|")}(\\-(${allowed_modifiers.join("|")}))? )?(${allowed_keys.join("|")})$`
-    console.log(regex)
-    console.log(event.target.value)
     if (`${event.target.value}`.match(regex) != null) {
         event.target.parentElement.getElementsByClassName("key_warning")[0].hidden = true
         document.getElementById("save_button").disabled = false
@@ -59,17 +57,41 @@ function SettingUpdater() {
     })
 }
 
-document.getElementById("height_input").addEventListener("focusout", function(event) {
-    ConstrainGridSizes(event);
-    ShowUnsavedWarning();
-    GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
+document.getElementById("height_input").addEventListener("change", function(event) {
+    ConstrainGridSizes(event)
+    UpdateGridSize()
 })
 
-document.getElementById("width_input").addEventListener("focusout", function(event) {
-    ConstrainGridSizes(event);
-    ShowUnsavedWarning();
-    GenerateGrid(document.getElementById("width_input").value, document.getElementById("height_input").value)
+document.getElementById("width_input").addEventListener("change", function(event) {
+    ConstrainGridSizes(event)
+    UpdateGridSize()
 })
+
+function UpdateGridSize() {
+    ShowUnsavedWarning();
+    GenerateGrid(document.getElementById("height_input").value, document.getElementById("width_input").value)
+    PopulateActions()
+    RestructureSavedSettings()
+}
+
+function RestructureSavedSettings() {
+    var button_names = []
+    var max_items = Number(document.getElementById("height_input").value) * Number(document.getElementById("width_input").value)
+    Object.keys(settings["buttons"]).forEach(button_name => button_names.push(button_name))
+    button_names.sort((a, b) => Number(`${a.split('-')[1]}.${a.split('-')[0]}`) - Number(`${b.split('-')[1]}.${b.split('-')[0]}`))
+    button_names.slice(0, max_items) // Limit number of buttons
+    console.log(`All names: ${button_names}`)
+    let button_index = 0
+    for (let y = 0; y < Number(document.getElementById("height_input").value); y++) {
+        if (button_index >= button_names.length) break
+        for (let x = 0; x < Number(document.getElementById("width_input").value); x++) {
+            if (button_index >= button_names.length) break
+            $(`#${x}-${y}-action`).val(settings["buttons"][button_names[button_index]]["action"]).trigger('change')
+            $(`#${x}-${y}-key`).val(settings["buttons"][button_names[button_index]]["key"]).trigger('change')
+            button_index++
+        }
+    }
+}
 
 window.addEventListener("beforeunload", function(e) {
     if (changed) {
@@ -100,6 +122,7 @@ function GenerateGrid(rows, cols) {
             var action_select = document.createElement("select")
             action_select.className = "action_select"
             action_select.id = `${x}-${y}-action`
+            var action_key_break = document.createElement("br")
             var key_label = document.createElement("label")
             key_label.innerText = "Key: "
             key_label.setAttribute("for", `${x}-${y}-key`)
@@ -121,6 +144,7 @@ function GenerateGrid(rows, cols) {
 
             cell.appendChild(action_label)
             cell.appendChild(action_select)
+            cell.appendChild(action_key_break)
             cell.appendChild(key_label)
             // cell.appendChild(key_input)
             cell.appendChild(key_value)

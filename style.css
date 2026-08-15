@@ -1,3 +1,47 @@
+:root {
+    --bg-colour: #ffffff;
+    --button-colour: #e9e9ed;
+    --hover-button-colour: #d0d0d7;
+    --depressed-button-colour: #b1b1b9;
+    --disabled-button-colour: #8a8a87;
+    --text-colour: #000000;
+    --link-colour: #0000ee;
+    --visited-link-colour: #551a8b;
+    --depressed-link-colour: #ee0000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-colour: #000000;
+        --button-colour: #808084;
+        --hover-button-colour: #919195;
+        --depressed-button-colour: #b3b3b7;
+        --text-colour: #ffffff;
+        --link-colour: #0000ee;
+        --visited-link-colour: #551a8b;
+        --depressed-link-colour: #ee0000;
+    }
+}
+
+body {
+    background-color: var(--bg-colour);
+}
+
+button {
+    background-color: var(--button-colour);
+}
+
+button:hover {
+    background-color: var(--hover-button-colour);
+}
+
+button:disabled {
+    background-color: var(--disabled-button-colour);
+    box-shadow: none;
+    border: 1px solid #999999;
+    cursor: not-allowed;
+}
+
 table.button_grid {
     width: 100%;
     height: 98vh;
@@ -28,8 +72,8 @@ input.grid_size_modifier {
 div.top_bar {
     position: fixed;
     top: 5px;
-    border: 2px solid black;
-    background-color: white;
+    border: 2px solid var(--text-colour);
+    background-color: var(--bg-colour);
     width: 99%;
     height: 35px;
     display: flex;
@@ -54,7 +98,7 @@ table.button_config_grid {
 }
 
 .button_config_cell {
-    border: 2px solid black;
+    border: 2px solid var(--text-colour);
 }
 
 input.action_select {
@@ -64,4 +108,16 @@ input.action_select {
 .action_value {
     width: 50px;
     margin-bottom: 3px;
+}
+
+a:link {
+    color: var(--link-colour);
+}
+
+a:visited {
+    color: var(--visited-link-colour)
+}
+
+a:active {
+    color: var(--depressed-link-colour);
 }
