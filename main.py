@@ -4,8 +4,10 @@ original_hostname = "some-device"
 
 def exit_program():
     print("Exiting...")
-    if platform.platform() == "Linux":
+    if platform.platform() == "Linux" or "Linux" in platform.platform():
         address_register.linux_revert(original_hostname)
+    else:
+        print("Failed to recognise OS type (was '{platform.platform()}'), failed to revert hostname")
     sys.exit(0)
 
 atexit.register(exit_program)

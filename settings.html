@@ -17,21 +17,6 @@
             <button id="save_button" style="margin-left: 5px;" onclick="SettingUpdater()">Save</button>
         </div>
     </div>
-
-    <datalist id="key_codes">
-        <option value="f13"></option>
-        <option value="f14"></option>
-        <option value="f15"></option>
-        <option value="f16"></option>
-        <option value="f17"></option>
-        <option value="f18"></option>
-        <option value="f19"></option>
-        <option value="f20"></option>
-        <option value="f21"></option>
-        <option value="f22"></option>
-        <option value="f23"></option>
-        <option value="f24"></option>
-    </datalist>
     
     <a href="/">&lt; Home</a>
     <h2>Settings</h2>
@@ -50,6 +35,8 @@
         </tr>
     </table>
 
+    <h3>Dark mode</h3>
+    <input type="checkbox" id="dark_toggle">Enable dark mode</input>
 
     <script>console.warn("grid width and height not triggering save alert nor changing grid size")</script>
     <script src="/scripts/setting_script.js"></script>

@@ -25,6 +25,7 @@
 
 body {
     background-color: var(--bg-colour);
+    color: var(--text-colour);
 }
 
 button {
@@ -121,3 +122,4 @@ a:visited {
 a:active {
     color: var(--depressed-link-colour);
 }
+

@@ -243,6 +243,7 @@ async function LoadSettings() {
     document.getElementsByClassName("top_bar_holder")[0].hidden = true
     changed = false
     
+    document.getElementById("dark_toggle").value = window.matchMedia("(prefers-color-scheme: dark)").matches
 }
 
 LoadSettings()
